@@ -15,5 +15,14 @@ return {
       },
     }
   end,
+  keys = {
+    { '<leader>Fr', ':FlutterReload <CR>', desc = '[F]lutter hot [r]eload', silent = true },
+    { '<leader>Fs', ':FlutterRestart <CR>', desc = '[F]lutter hot Re[s]tart', silent = true },
+    { '<leader>Fd', ':FlutterDevices <CR>', desc = '[F]lutter [d]evices', silent = true },
+    { '<leader>Ft', ':FlutterOpenDevTools <CR>', desc = '[F]lutter dev [t]ools', silent = true },
+    { '<leader>Fl', ':FlutterLogToggle <CR>', desc = '[F]lutter Toggle [l]ogs', silent = true },
+    { '<leader>Fp', ':FlutterPubGet <CR>', desc = '[F]lutter [p]ub get', silent = true },
+    { '<leader>Fq', ':FlutterQuit <CR>', desc = '[F]lutter [q]uit', silent = true },
+  },
   ft = { 'dart' }, -- lazy load only for Dart files
 }
