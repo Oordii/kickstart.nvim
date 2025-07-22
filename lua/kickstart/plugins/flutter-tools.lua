@@ -24,5 +24,15 @@ return {
     { '<leader>Fp', ':FlutterPubGet <CR>', desc = '[F]lutter [p]ub get', silent = true },
     { '<leader>Fq', ':FlutterQuit <CR>', desc = '[F]lutter [q]uit', silent = true },
   },
-  ft = { 'dart' }, -- lazy load only for Dart files
+  ft = { 'dart' },
+  lsp = {
+    color = {
+      enabled = false,
+      background = false,
+      background_color = nil,
+      foreground = false,
+      virtual_text = true,
+      virtual_text_str = '■',
+    },
+  },
 }
