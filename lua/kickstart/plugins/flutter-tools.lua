@@ -1,8 +1,8 @@
 return {
-  'akinsho/flutter-tools.nvim',
+  'nvim-flutter/flutter-tools.nvim',
   dependencies = {
     'nvim-lua/plenary.nvim',
-    'stevearc/dressing.nvim', -- optional UI
+    'stevearc/dressing.nvim',
   },
   config = function()
     require('flutter-tools').setup {
@@ -12,6 +12,16 @@ return {
         highlight = 'Comment',
         prefix = '//',
         enabled = true,
+      },
+      lsp = {
+        color = {
+          enabled = true,
+          background = false,
+          background_color = nil,
+          foreground = false,
+          virtual_text = true,
+          virtual_text_str = '■',
+        },
       },
     }
   end,
@@ -23,16 +33,7 @@ return {
     { '<leader>Fl', ':FlutterLogToggle <CR>', desc = '[F]lutter Toggle [l]ogs', silent = true },
     { '<leader>Fp', ':FlutterPubGet <CR>', desc = '[F]lutter [p]ub get', silent = true },
     { '<leader>Fq', ':FlutterQuit <CR>', desc = '[F]lutter [q]uit', silent = true },
+    { '<leader>Fo', ':FlutterOutlineOpen <CR>', desc = '[F]lutter [o]utline open', silent = true },
   },
   ft = { 'dart' },
-  lsp = {
-    color = {
-      enabled = false,
-      background = false,
-      background_color = nil,
-      foreground = false,
-      virtual_text = true,
-      virtual_text_str = '■',
-    },
-  },
 }
