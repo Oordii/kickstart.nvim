@@ -84,6 +84,20 @@ I hope you enjoy your Neovim journey,
 P.S. You can delete this when you're done too. It's your config now! :)
 --]]
 
+-- Load Theme
+-- vim.opt.termguicolors = true
+-- vim.cmd 'colorscheme ThemerSeti'
+
+-- Set kitty window var when Neovim starts
+vim.cmd [[
+  augroup kitty_padding
+    autocmd!
+    autocmd VimEnter * if !empty($KITTY_WINDOW_ID) | silent !kitty @ --to $KITTY_LISTEN_ON set-spacing margin=0
+    autocmd VimLeave * if !empty($KITTY_WINDOW_ID) | silent !kitty @ --to $KITTY_LISTEN_ON set-spacing margin=21.75
+    autocmd BufEnter * if !empty($KITTY_WINDOW_ID) | silent !kitty @ --to $KITTY_LISTEN_ON set-spacing margin=0
+  augroup END
+]]
+
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
@@ -501,7 +515,7 @@ require('lazy').setup({
     },
     config = function()
       -- Brief aside: **What is LSP?**
-      --
+      require('lspconfig').qmlls6.setup {}
       -- LSP is an initialism you've probably heard, but might not understand what it is.
       --
       -- LSP stands for Language Server Protocol. It's a protocol that helps editors
