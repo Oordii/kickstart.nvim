@@ -515,7 +515,6 @@ require('lazy').setup({
     },
     config = function()
       -- Brief aside: **What is LSP?**
-      require('lspconfig').qmlls6.setup {}
       -- LSP is an initialism you've probably heard, but might not understand what it is.
       --
       -- LSP stands for Language Server Protocol. It's a protocol that helps editors
@@ -703,8 +702,6 @@ require('lazy').setup({
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         ts_ls = {},
-        --
-
         lua_ls = {
           -- cmd = { ... },
           -- filetypes = { ... },
@@ -719,6 +716,12 @@ require('lazy').setup({
             },
           },
         },
+        qmlls = {},
+        html = {},
+        cssls = {},
+        tailwindcss = {},
+        emmet_ls = {},
+        omnisharp = {},
       }
 
       -- Ensure the servers and tools above are installed
