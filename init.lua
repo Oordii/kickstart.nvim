@@ -429,11 +429,9 @@ require('lazy').setup({
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
         --
-        -- defaults = {
-        --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        --   },
-        -- },
+        defaults = {
+          file_ignore_patterns = { '%__virtual.cs$' },
+        },
         -- pickers = {}
         extensions = {
           ['ui-select'] = {
@@ -503,7 +501,15 @@ require('lazy').setup({
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- Mason must be loaded before its dependents so we need to set it up here.
       -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
-      { 'mason-org/mason.nvim', opts = {} },
+      {
+        'mason-org/mason.nvim',
+        opts = {
+          registries = {
+            'github:mason-org/mason-registry',
+            'github:Crashdummyy/mason-registry',
+          },
+        },
+      },
       'mason-org/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
@@ -693,7 +699,16 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         -- gopls = {},
-        -- pyright = {},
+        pyright = {
+          settings = {
+            python = {
+              analysis = {
+                autoImportCompletions = true, -- Enable import suggestions
+                typeCheckingMode = 'basic', -- Options: "off", "basic", "strict"
+              },
+            },
+          },
+        },
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -717,11 +732,16 @@ require('lazy').setup({
           },
         },
         qmlls = {},
-        html = {},
+        html = {
+          filetypes = { 'html' },
+        },
         cssls = {},
         tailwindcss = {},
         emmet_ls = {},
-        omnisharp = {},
+        omnisharp = {
+          cmd = { 'dotnet', 'omnisharp', '--languageserver' },
+          filetypes = { 'cs', 'cshtml' },
+        },
       }
 
       -- Ensure the servers and tools above are installed
@@ -780,7 +800,7 @@ require('lazy').setup({
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
+        local disable_filetypes = { c = true, cpp = true, python = true }
         if disable_filetypes[vim.bo[bufnr].filetype] then
           return nil
         else
@@ -793,10 +813,15 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
+        python = { 'isort' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+      },
+      formatters = {
+        black = {
+          prepend_args = { '--line-length', '120' }, -- Increase line length to 120
+        },
       },
     },
   },
@@ -1005,6 +1030,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
   require 'kickstart.plugins.flutter-tools',
   require 'kickstart.plugins.toggleterm',
+  -- require 'kickstart.plugins.roslyn',
   -- vim.keymap.set()
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
